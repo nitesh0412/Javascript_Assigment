@@ -132,58 +132,83 @@ class Address {
     }
   }
   
-  const e1 = Employee.newEmployee(
-    "Yash",
-    "Shinde",
+  
+const e1 = Employee.newEmployee(
+    "Nitesh",
+    "Kumawat",
     100,
-    9167910032,
-    "shindeyash172@gmail.com",
-    9167910032,
-    "yash.shinde@aurionpro.com",
+    9082596460,
+    "nitesh@gmail.com",
+    7021763321,
+    "nitesh@google.com",
     20000,
-    "SDE1",
-    "CashManagement",
-    "10/1/2002",
-    "7/1/2022",
-    "",
-    { address: "Neelambari", city: "Thane", country: "India" },
-    { address: "Aurionpro Rabale", city: "Thane", country: "India" }
+    "software engineer",
+    "Devlopment",
+    "1990-01-10",
+    "2022-07-01",
+    null,
+    {
+      address: "Airoli",
+      city: "Navi Mumbai",
+      country: "India"
+    },
+    {
+      address: "Aurionpro",
+      city: "Navi Mumabi",
+      country: "India"
+    }
   );
   
   const e2 = Employee.newEmployee(
-    "Amit",
-    "Mete",
+    "Lalit",
+    "kumawat",
     2,
-    9167910032,
-    "amitmete@gmail.com",
-    9167910032,
-    "amit.mete@aurionpro.com",
+    7890876543,
+    "lala@gmail.com",
+    1234567890,
+    "loki@google.com",
     60000,
-    "SDE2",
+    "tester",
     "IT",
-    "5/10/2001",
-    "10/1/2022",
-    "",
-    { address: "1/101,xyz building", city: "Thane", country: "India" },
-    { address: "101 XYZ", city: "Thane", country: "India" }
+    "1985-05-10",
+    "2021-03-15",
+    null,
+    {
+      address: "punjab",
+      city: "punjba",
+      country: "India"
+    },
+    {
+      address: "austail",
+      city: "Thane",
+      country: "India"
+    }
   );
   
   const e3 = Employee.newEmployee(
-    "Aniket",
-    "Shinde",
-    2,
-    9167910032,
-    "aniketshinde@gmail.com",
-    9167910032,
-    "aniketshinde@aurionpro.com",
+    "anonymous",
+    "anynymous",
+    3,
+    9987654321,
+    "anonymous@gmail.com",
+    1122334455,
+    "anonymous@google.com",
     100000,
     "SDE2",
     "IT",
-    "5/10/2001",
-    "10/1/2022",
-    "",
-    { address: "1/101,xyz building", city: "Thane", country: "India" },
-    { address: "101 XYZ", city: "Thane", country: "India" }
+    "1992-09-25",
+    "2023-02-20",
+    null,
+    {
+      address: "peru",
+      city: "america",
+      country: "India"
+    },
+    {
+      address: "england",
+      city: "asddfgf",
+      country: "India"
+    }
   );
   
   console.log(e1);
