@@ -281,4 +281,152 @@ class User{
             return error
         }
     }
+
+    deposit(accountId, amount){
+        try {
+            if(this.isAdmin){
+                throw new UnauthorizedError("you are not user")
+            }
+            if(typeof accountId != "number"){
+                throw new ValidationError("account ID not valid")
+            }
+            let indexOfAccount = this.findAccount(accountId)
+            this.accounts[indexOfAccount].deposit(amount)
+            return this.accounts
+        } 
+        catch (error) {
+            return error
+        }
+    }
+
+    withdraw(accountId, amount){
+        try {
+            if(this.isAdmin){
+                throw new UnauthorizedError("you are not user")
+            }
+            if(typeof accountId != "number"){
+                throw new ValidationError("account ID not valid")
+            }
+            let indexOfAccount = this.findAccount(accountId)
+            this.accounts[indexOfAccount].withdraw(amount)
+            return this.accounts
+        } 
+        catch (error) {
+            return error
+        }
+    }
+
+    findReceiverAccount(obj, accountId){
+        try {
+            if(obj.isAdmin){
+                throw new UnauthorizedError("you are not user")
+            }
+            if(typeof accountId != "number"){
+                throw new ValidationError("receiver account ID not valid")
+            }
+            for (let index = 0; index < obj.accounts.length; index++) {
+                if(accountId == obj.accounts[index].id){
+                    return index
+                }
+            }
+            throw new NotFound("receiver account not found")
+        } catch (error) {
+            throw error.specificMessage
+        }
+    }
+
+    transfer(amount, fromAccoutId, receiverUserId, receiverAccountId){
+        try {
+            if(this.isAdmin){
+                throw new UnauthorizedError("you are not user")
+            }
+            let indexOfReceiver = this.findUser(receiverUserId) 
+            let reciever = User.allUsers[indexOfReceiver]
+            let indexOfReceiverAccount = this.findReceiverAccount(reciever, receiverAccountId)
+            let indexOfSenderAccount = this.findAccount(fromAccoutId)
+            this.accounts[indexOfSenderAccount].withdraw(amount)
+            reciever.accounts[indexOfReceiverAccount].deposit(amount)
+            return this.accounts
+        } 
+        catch (error) {
+            return error
+        }
+    }
+
+    getPassBook(accountId){
+        try {
+            if(this.isAdmin){
+                throw new UnauthorizedError("you are not user")
+            }
+            if(typeof accountId != "number"){
+                throw new ValidationError("Account ID not valid")
+            }
+            let indexOfPassBook = this.findAccount(accountId)
+            return this.accounts[indexOfPassBook].getPassBook()
+        } 
+        catch (error) {
+            return error
+        }
+    }
+
+    getNetworth(userId){
+        try {
+            if(typeof userId != "number"){
+                throw new ValidationError("user ID not valid")
+            }
+            let indexOfUser = this.findUser(userId)
+            let userAccounts = User.allUsers[indexOfUser].getAllAccount()
+            let netWorth = 0
+            for (let index = 0; index < userAccounts.length; index++) {
+                netWorth = netWorth + userAccounts[index].getBalance()      
+            }
+            return netWorth
+        } 
+        catch (error) {
+            return error
+        }
+    }
+
+    getAccountsInBank(bankId){
+        try {
+            if(!this.isAdmin){
+                throw new UnauthorizedError("you are not admin")
+            }
+            if(typeof bankId != "number"){
+                throw new ValidationError("user ID not valid")
+            }
+            let indexOfBank = this.findBank(bankId)
+            return User.allBanks[indexOfBank]
+        } catch (error) {
+            return error
+        }
+    }
 }
+
+
+let a = User.newAdmin("Nitesh", 23, "M")
+let u1 = a.newUser("yash", 21, "M")
+let u2 = a.newUser("temp", 21, "M")
+let b1 = a.newBank("sbi")
+let b2 = a.newBank("icici")
+
+u1.createAccount(0, 10000)
+u1.createAccount(1, 50000)
+console.log("U1 account after creating account");
+console.log(u1.getAllAccount());
+
+
+
+
+
+u1.deposit(0, 5000)
+console.log("U1 account after depositing money in account");
+u2.createAccount(0, 15000)
+console.log("U2 account after creating account");
+console.log(u2.getAllAccount());
+console.log(u2.transfer(50000, 2, 1, 0))
+console.log("total bank acccounts in bank 1");
+console.log(a.getAccountsInBank(0));
+console.log("networth of u1 : ", u1.getNetworth(1))
+console.log("networth of U2 : ", u2.getNetworth(2));
+console.log("---------------------------------------------------");
